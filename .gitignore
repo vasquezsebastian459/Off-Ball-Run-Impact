@@ -5,3 +5,18 @@
 *.npz
 *.json
 *.jsonl
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+.env
+
+# Local data and outputs (tracking/event data is not redistributable)
+data/
+outputs/
+*.npy
+
+# OS
+.DS_Store

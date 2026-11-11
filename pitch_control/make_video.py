@@ -4,7 +4,7 @@ import os
 
 # Set your folder path
 img_folder = "pitch_control/plots"
-output_video = "pitch_control/videos/pitch_control_video.mp4"
+output_video = "docs/media/pitch_control_video.mp4"
 fps = 5  # frames per second
 
 # Get all images in sorted order
