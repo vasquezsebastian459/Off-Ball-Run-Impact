@@ -1,3 +1,6 @@
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.abspath(_os.path.join(_os.path.dirname(__file__), '..')))
+from ori_config import RAW_DATA_DIR  # noqa: E402
 import json
 import numpy as np
 import pickle
@@ -783,7 +786,7 @@ if __name__ == "__main__":
 
 
     query_db = utils.query_db.QueryDB()
-    # base_dir = "/Users/svasquez/driblab/outputs/ESP I 2024/622123"
+    # base_dir = f"{RAW_DATA_DIR}/ESP I 2024/622123"
 
 
     ran_games_path = "stats/ran_games/ran_games.csv"
@@ -831,7 +834,7 @@ if __name__ == "__main__":
 
             print(f"Processing match ID: {match} ({num}/{len(match_ids)})")
             season_name = query_db.get_season_name(match)
-            base_dir = f"/Users/svasquez/driblab/outputs/{season_name}/{match}"
+            base_dir = f"{RAW_DATA_DIR}/{season_name}/{match}"
             # match_df = get_data(base_dir)
             match_df = get_data2(base_dir)
             model_df.extend(match_df)

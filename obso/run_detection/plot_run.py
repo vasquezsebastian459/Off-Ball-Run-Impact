@@ -1,3 +1,6 @@
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.abspath(_os.path.join(_os.path.dirname(__file__), '..', '..')))
+from ori_config import FIGURES_DIR, S3_FETCH_SCRIPT  # noqa: E402
 import json
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
@@ -385,19 +388,19 @@ def get_data_from_s3(match_id):
         print(f"PPCF already exists for match {match_id}")
         return
 
-    subprocess.run(["python", "/Users/svasquez/AWS_PC/s3_get_file.py", "--file_path", f"outputs/{match_id}/events.json", "--match_id", str(match_id), "--type", "json"])
-    subprocess.run(["python", "/Users/svasquez/AWS_PC/s3_get_file.py", "--file_path", f"outputs/{match_id}/wy_id2plyr_id.pkl", "--match_id", str(match_id), "--type", "pkl"])
-    subprocess.run(["python", "/Users/svasquez/AWS_PC/s3_get_file.py", "--file_path", f"outputs/{match_id}/wy_id2team_id.pkl", "--match_id", str(match_id), "--type", "pkl"])
-    subprocess.run(["python", "/Users/svasquez/AWS_PC/s3_get_file.py", "--file_path", f"outputs/{match_id}/cached_data/match_info.json", "--match_id", str(match_id), "--type", "json"])
-    subprocess.run(["python", "/Users/svasquez/AWS_PC/s3_get_file.py", "--file_path", f"outputs/{match_id}/plyr_lookup_dict.json", "--match_id", str(match_id), "--type", "json"])
-    # subprocess.run(["python", "/Users/svasquez/AWS_PC/s3_get_file.py", "--file_path", f"outputs/{match_id}/merged_tracking_events.jsonl", "--match_id", str(match_id), "--type", "jsonl"])
-    subprocess.run(["python", "/Users/svasquez/AWS_PC/s3_get_file.py", "--file_path", f"outputs/{match_id}/{match_id}_tracking_data.jsonl", "--match_id", str(match_id), "--type", "jsonl"])
-    subprocess.run(["python", "/Users/svasquez/AWS_PC/s3_get_file.py", "--file_path", f"outputs/{match_id}/possession_intervals.json", "--match_id", str(match_id), "--type", "json"])
-    subprocess.run(["python", "/Users/svasquez/AWS_PC/s3_get_file.py", "--file_path", f"outputs/{match_id}/PPCF_filtered_30x20.npz", "--match_id", str(match_id), "--type", "npz"])
+    subprocess.run(["python", S3_FETCH_SCRIPT, "--file_path", f"outputs/{match_id}/events.json", "--match_id", str(match_id), "--type", "json"])
+    subprocess.run(["python", S3_FETCH_SCRIPT, "--file_path", f"outputs/{match_id}/wy_id2plyr_id.pkl", "--match_id", str(match_id), "--type", "pkl"])
+    subprocess.run(["python", S3_FETCH_SCRIPT, "--file_path", f"outputs/{match_id}/wy_id2team_id.pkl", "--match_id", str(match_id), "--type", "pkl"])
+    subprocess.run(["python", S3_FETCH_SCRIPT, "--file_path", f"outputs/{match_id}/cached_data/match_info.json", "--match_id", str(match_id), "--type", "json"])
+    subprocess.run(["python", S3_FETCH_SCRIPT, "--file_path", f"outputs/{match_id}/plyr_lookup_dict.json", "--match_id", str(match_id), "--type", "json"])
+    # subprocess.run(["python", S3_FETCH_SCRIPT, "--file_path", f"outputs/{match_id}/merged_tracking_events.jsonl", "--match_id", str(match_id), "--type", "jsonl"])
+    subprocess.run(["python", S3_FETCH_SCRIPT, "--file_path", f"outputs/{match_id}/{match_id}_tracking_data.jsonl", "--match_id", str(match_id), "--type", "jsonl"])
+    subprocess.run(["python", S3_FETCH_SCRIPT, "--file_path", f"outputs/{match_id}/possession_intervals.json", "--match_id", str(match_id), "--type", "json"])
+    subprocess.run(["python", S3_FETCH_SCRIPT, "--file_path", f"outputs/{match_id}/PPCF_filtered_30x20.npz", "--match_id", str(match_id), "--type", "npz"])
     print(f"================================================")
 
 def make_run_dir(match_id, run_id):
-    img_dir = f"/Users/svasquez/Desktop/Capstone Project/Images"
+    img_dir = FIGURES_DIR
 
     # Make sure there is a folder for the match
     match_dir = f"{img_dir}/{match_id}"

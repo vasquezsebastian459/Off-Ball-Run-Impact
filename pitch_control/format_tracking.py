@@ -1,3 +1,6 @@
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.abspath(_os.path.join(_os.path.dirname(__file__), '..')))
+from ori_config import OUTPUTS_DIR  # noqa: E402
 import json
 import pandas as pd
 
@@ -142,7 +145,7 @@ if __name__ == "__main__":
 
     match_id = 666385
 
-    tracking_data_path = f"/Users/svasquez/driblab/dl-vision/outputs/{match_id}/666385_tracking_data.jsonl"
+    tracking_data_path = f"{OUTPUTS_DIR}/{match_id}/666385_tracking_data.jsonl"
 
     # Load tracking data
     tracking_data = []

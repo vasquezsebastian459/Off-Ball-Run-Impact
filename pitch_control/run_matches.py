@@ -1,3 +1,6 @@
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.abspath(_os.path.join(_os.path.dirname(__file__), '..')))
+from ori_config import MATCH_LISTS_DIR, OUTPUTS_DIR  # noqa: E402
 import json
 import subprocess
 import os
@@ -25,7 +28,7 @@ if __name__ == "__main__":
 
     import pandas as pd
 
-    df_path = f"/Users/svasquez/AWS_PC/loaded_matches.csv"
+    df_path = f"{MATCH_LISTS_DIR}/loaded_matches.csv"
 
     df = pd.read_csv(df_path)
 
@@ -51,7 +54,7 @@ if __name__ == "__main__":
 
             # Check if folder dir exists, if it does delete it
 
-            output_dir = f"/Users/svasquez/driblab/dl-vision/outputs/{match_id}"
+            output_dir = f"{OUTPUTS_DIR}/{match_id}"
 
             if os.path.exists(output_dir):
                 print(f"Output directory exists for match {match_id}, deleting ... ")

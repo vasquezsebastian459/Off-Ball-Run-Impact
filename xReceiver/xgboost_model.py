@@ -1,3 +1,6 @@
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.abspath(_os.path.join(_os.path.dirname(__file__), '..')))
+from ori_config import OUTPUTS_DIR  # noqa: E402
 import joblib
 import pandas as pd
 import json 
@@ -37,7 +40,7 @@ class XGBoostModel:
 
     def load_data(self, match_id):
 
-        match_dir = f"/Users/svasquez/driblab/dl-vision/outputs/{match_id}"
+        match_dir = f"{OUTPUTS_DIR}/{match_id}"
 
         # Get merged tracking data
 

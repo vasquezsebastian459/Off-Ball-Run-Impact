@@ -1,3 +1,6 @@
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.abspath(_os.path.join(_os.path.dirname(__file__), '..')))
+from ori_config import MATCH_LISTS_DIR, OUTPUTS_DIR, S3_FETCH_SCRIPT  # noqa: E402
 import json
 import os
 import numpy as np
@@ -592,12 +595,12 @@ def get_data_from_s3(match_id):
         print(f"File {check_file} already exists")
         return
 
-    subprocess.run(["python", "/Users/svasquez/AWS_PC/s3_get_file.py", "--file_path", f"outputs/{match_id}/events.json", "--match_id", str(match_id), "--type", "json"])
-    subprocess.run(["python", "/Users/svasquez/AWS_PC/s3_get_file.py", "--file_path", f"outputs/{match_id}/wy_id2plyr_id.pkl", "--match_id", str(match_id), "--type", "pkl"])
-    subprocess.run(["python", "/Users/svasquez/AWS_PC/s3_get_file.py", "--file_path", f"outputs/{match_id}/wy_id2team_id.pkl", "--match_id", str(match_id), "--type", "pkl"])
-    subprocess.run(["python", "/Users/svasquez/AWS_PC/s3_get_file.py", "--file_path", f"outputs/{match_id}/cached_data/match_info.json", "--match_id", str(match_id), "--type", "json"])
-    subprocess.run(["python", "/Users/svasquez/AWS_PC/s3_get_file.py", "--file_path", f"outputs/{match_id}/plyr_lookup_dict.json", "--match_id", str(match_id), "--type", "json"])
-    subprocess.run(["python", "/Users/svasquez/AWS_PC/s3_get_file.py", "--file_path", f"outputs/{match_id}/merged_tracking_events.jsonl", "--match_id", str(match_id), "--type", "jsonl"])
+    subprocess.run(["python", S3_FETCH_SCRIPT, "--file_path", f"outputs/{match_id}/events.json", "--match_id", str(match_id), "--type", "json"])
+    subprocess.run(["python", S3_FETCH_SCRIPT, "--file_path", f"outputs/{match_id}/wy_id2plyr_id.pkl", "--match_id", str(match_id), "--type", "pkl"])
+    subprocess.run(["python", S3_FETCH_SCRIPT, "--file_path", f"outputs/{match_id}/wy_id2team_id.pkl", "--match_id", str(match_id), "--type", "pkl"])
+    subprocess.run(["python", S3_FETCH_SCRIPT, "--file_path", f"outputs/{match_id}/cached_data/match_info.json", "--match_id", str(match_id), "--type", "json"])
+    subprocess.run(["python", S3_FETCH_SCRIPT, "--file_path", f"outputs/{match_id}/plyr_lookup_dict.json", "--match_id", str(match_id), "--type", "json"])
+    subprocess.run(["python", S3_FETCH_SCRIPT, "--file_path", f"outputs/{match_id}/merged_tracking_events.jsonl", "--match_id", str(match_id), "--type", "jsonl"])
 
 
 def run_preprocess(match_id):
@@ -607,8 +610,8 @@ def run_preprocess(match_id):
 
 if __name__ == "__main__":
 
-    match_data = pd.read_csv("/Users/svasquez/AWS_PC/loaded_matches_v2.csv")
-    match_data = pd.read_csv("/Users/svasquez/AWS_PC/xG_external_matches.csv")
+    match_data = pd.read_csv(f"{MATCH_LISTS_DIR}/loaded_matches_v2.csv")
+    match_data = pd.read_csv(f"{MATCH_LISTS_DIR}/xG_external_matches.csv")
 
     match_ids = match_data['match_id'].tolist()
     
@@ -634,7 +637,7 @@ if __name__ == "__main__":
 
             run_preprocess(match)
 
-            base_dir = f"/Users/svasquez/driblab/dl-vision/outputs/{match}"
+            base_dir = f"{OUTPUTS_DIR}/{match}"
             match_df = get_data(base_dir)
             model_df.extend(match_df)
             

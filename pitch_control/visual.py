@@ -1,3 +1,6 @@
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.abspath(_os.path.join(_os.path.dirname(__file__), '..')))
+from ori_config import OUTPUTS_DIR  # noqa: E402
 import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.animation as animation
@@ -284,7 +287,7 @@ if __name__ == "__main__":
     frame_index = 46118
     frame_index = 46158
     
-    data = np.load(f'/Users/svasquez/driblab/dl-vision/outputs/{match_id}/PPCF_filtered_30x20.npz', allow_pickle=True)
+    data = np.load(f'{OUTPUTS_DIR}/{match_id}/PPCF_filtered_30x20.npz', allow_pickle=True)
 
     PPCF_data = data['PPCF_data']
 

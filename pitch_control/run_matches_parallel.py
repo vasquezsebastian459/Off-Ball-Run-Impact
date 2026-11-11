@@ -1,3 +1,6 @@
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.abspath(_os.path.join(_os.path.dirname(__file__), '..')))
+from ori_config import UPLOAD_SCRIPT  # noqa: E402
 import subprocess
 import multiprocessing
 from filelock import FileLock
@@ -25,9 +28,9 @@ def run_match_preprocessing(match_id):
         print(f"▶️ Processing match {match_id}")
         subprocess.run(["python", "-m", "stats.match_analyzer", str(match_id)], check=True)
 
-        # python /Users/svasquez/AWS_PC/upload_matches.py --match_id 666385
+        # python scripts/upload_matches.py --match_id 666385
 
-        subprocess.run(["python", "/Users/svasquez/AWS_PC/upload_matches.py", "--match_id", str(match_id)], check=True)
+        subprocess.run(["python", UPLOAD_SCRIPT, "--match_id", str(match_id)], check=True)
         add_processed_match(match_id)
         print(f"✅ Done: {match_id}")
     except subprocess.CalledProcessError as e:

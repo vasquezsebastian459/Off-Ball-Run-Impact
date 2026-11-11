@@ -1,10 +1,13 @@
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.abspath(_os.path.join(_os.path.dirname(__file__), '..')))
+from ori_config import MATCH_LISTS_DIR, REPO_ROOT, S3_FETCH_SCRIPT  # noqa: E402
 import traceback
 import pandas as pd
 from run_detection.run_detection import detect_runs
 import subprocess
 import sys
 import os
-sys.path.append('/Users/svasquez/driblab/dl-vision/stats')
+sys.path.append(REPO_ROOT)
 from xReceiver.xgboost_model import XGBoostModel
 from run_detection.plot_run import PlotRun
 
@@ -198,15 +201,15 @@ def get_data_from_s3(match_id):
             print(f"File {check_file} already exists")
             return
 
-        subprocess.run(["python", "/Users/svasquez/AWS_PC/s3_get_file.py", "--file_path", f"outputs/{match_id}/events.json", "--match_id", str(match_id), "--type", "json"])
-        subprocess.run(["python", "/Users/svasquez/AWS_PC/s3_get_file.py", "--file_path", f"outputs/{match_id}/wy_id2plyr_id.pkl", "--match_id", str(match_id), "--type", "pkl"])
-        subprocess.run(["python", "/Users/svasquez/AWS_PC/s3_get_file.py", "--file_path", f"outputs/{match_id}/wy_id2team_id.pkl", "--match_id", str(match_id), "--type", "pkl"])
-        subprocess.run(["python", "/Users/svasquez/AWS_PC/s3_get_file.py", "--file_path", f"outputs/{match_id}/cached_data/match_info.json", "--match_id", str(match_id), "--type", "json"])
-        subprocess.run(["python", "/Users/svasquez/AWS_PC/s3_get_file.py", "--file_path", f"outputs/{match_id}/plyr_lookup_dict.json", "--match_id", str(match_id), "--type", "json"])
-        subprocess.run(["python", "/Users/svasquez/AWS_PC/s3_get_file.py", "--file_path", f"outputs/{match_id}/merged_tracking_events.jsonl", "--match_id", str(match_id), "--type", "jsonl"])
-        subprocess.run(["python", "/Users/svasquez/AWS_PC/s3_get_file.py", "--file_path", f"outputs/{match_id}/{match_id}_tracking_data.jsonl", "--match_id", str(match_id), "--type", "jsonl"])
-        subprocess.run(["python", "/Users/svasquez/AWS_PC/s3_get_file.py", "--file_path", f"outputs/{match_id}/possession_intervals.json", "--match_id", str(match_id), "--type", "json"])
-        subprocess.run(["python", "/Users/svasquez/AWS_PC/s3_get_file.py", "--file_path", f"outputs/{match_id}/PPCF_filtered_30x20.npz", "--match_id", str(match_id), "--type", "npz"])
+        subprocess.run(["python", S3_FETCH_SCRIPT, "--file_path", f"outputs/{match_id}/events.json", "--match_id", str(match_id), "--type", "json"])
+        subprocess.run(["python", S3_FETCH_SCRIPT, "--file_path", f"outputs/{match_id}/wy_id2plyr_id.pkl", "--match_id", str(match_id), "--type", "pkl"])
+        subprocess.run(["python", S3_FETCH_SCRIPT, "--file_path", f"outputs/{match_id}/wy_id2team_id.pkl", "--match_id", str(match_id), "--type", "pkl"])
+        subprocess.run(["python", S3_FETCH_SCRIPT, "--file_path", f"outputs/{match_id}/cached_data/match_info.json", "--match_id", str(match_id), "--type", "json"])
+        subprocess.run(["python", S3_FETCH_SCRIPT, "--file_path", f"outputs/{match_id}/plyr_lookup_dict.json", "--match_id", str(match_id), "--type", "json"])
+        subprocess.run(["python", S3_FETCH_SCRIPT, "--file_path", f"outputs/{match_id}/merged_tracking_events.jsonl", "--match_id", str(match_id), "--type", "jsonl"])
+        subprocess.run(["python", S3_FETCH_SCRIPT, "--file_path", f"outputs/{match_id}/{match_id}_tracking_data.jsonl", "--match_id", str(match_id), "--type", "jsonl"])
+        subprocess.run(["python", S3_FETCH_SCRIPT, "--file_path", f"outputs/{match_id}/possession_intervals.json", "--match_id", str(match_id), "--type", "json"])
+        subprocess.run(["python", S3_FETCH_SCRIPT, "--file_path", f"outputs/{match_id}/PPCF_filtered_30x20.npz", "--match_id", str(match_id), "--type", "npz"])
         print(f"================================================")
     except Exception as e:
         print(f"Error getting data from s3 for match {match_id}: {e}")
@@ -310,7 +313,7 @@ if __name__ == "__main__":
     training_set = list(training_set)
 
 
-    df_path = f"/Users/svasquez/AWS_PC/loaded_matches.csv"
+    df_path = f"{MATCH_LISTS_DIR}/loaded_matches.csv"
 
     df = pd.read_csv(df_path)
 
@@ -352,7 +355,7 @@ if __name__ == "__main__":
 
 
 
-    df_path = f"/Users/svasquez/AWS_PC/loaded_matches.csv"
+    df_path = f"{MATCH_LISTS_DIR}/loaded_matches.csv"
 
     df = pd.read_csv(df_path)
 

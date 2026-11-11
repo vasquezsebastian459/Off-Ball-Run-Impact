@@ -1,3 +1,6 @@
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.abspath(_os.path.join(_os.path.dirname(__file__), '..')))
+from ori_config import OUTPUTS_DIR  # noqa: E402
 
 import json
 import pandas as pd
@@ -201,8 +204,8 @@ if __name__ == "__main__":
 
     match_id = 666385
 
-    events_file = f'/Users/svasquez/driblab/dl-vision/outputs/{match_id}/events.json'
-    merged_jsonl = f'/Users/svasquez/driblab/dl-vision/outputs/{match_id}/merged_tracking_events.jsonl'
+    events_file = f'{OUTPUTS_DIR}/{match_id}/events.json'
+    merged_jsonl = f'{OUTPUTS_DIR}/{match_id}/merged_tracking_events.jsonl'
 
     # Load your JSON data
     with open(events_file, 'r') as f:

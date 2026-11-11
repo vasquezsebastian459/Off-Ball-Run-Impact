@@ -1,3 +1,6 @@
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.abspath(_os.path.join(_os.path.dirname(__file__), '..')))
+from ori_config import OUTPUTS_DIR, RAW_DATA_DIR  # noqa: E402
 import json
 import numpy as np
 import pickle
@@ -498,7 +501,7 @@ def get_features(plyr_id, row, wy_id2team_id, wy_id2plyr_id, merged_tracking_jso
 
 def main(match_id, row_num, plyr_id):
 
-    base_dir = f"/Users/svasquez/driblab/dl-vision/outputs/{match_id}"
+    base_dir = f"{OUTPUTS_DIR}/{match_id}"
     game_path = base_dir + "/merged_tracking_events.jsonl"
 
     with open(game_path) as f:
@@ -541,7 +544,7 @@ def main(match_id, row_num, plyr_id):
 
 
 if __name__ == "__main__":
-    base_dir = "/Users/svasquez/driblab/outputs/FRA I 2024/624102"
+    base_dir = f"{RAW_DATA_DIR}/FRA I 2024/624102"
 
     match_id = 666385
 
