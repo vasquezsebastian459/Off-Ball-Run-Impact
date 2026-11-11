@@ -1,0 +1,20 @@
+# Core
+numpy
+pandas
+scipy
+joblib
+filelock
+
+# Models
+scikit-learn
+xgboost
+imbalanced-learn
+
+# Used only in model comparison notebooks
+lightgbm
+catboost
+
+# Visualisation
+matplotlib
+seaborn
+opencv-python
